@@ -7,6 +7,7 @@ import PlaylistsPage from './pages/PlaylistsPage';
 import ProfilePage from './pages/ProfilePage'; 
 import CatalogManagementPage from './pages/CatalogManagementPage'; 
 import ReportsPage from './pages/ReportsPage'; 
+import NotificationsPage from './pages/NotificationsPage'; 
 
 function App() { 
   return ( 
@@ -20,6 +21,7 @@ function App() {
           <Link to="/profile" className="mx-4">Profile</Link> 
           <Link to="/catalog" className="mx-4">Catalog Management</Link> 
           <Link to="/reports" className="mx-4">Reports</Link> 
+          <Link to="/notifications" className="mx-4">Notifications</Link> 
         </nav> 
         <Routes> 
           <Route path="/" element={<div className="flex items-center justify-center h-screen"><h1 className="text-2xl">Welcome to the App!</h1></div>} /> 
@@ -28,6 +30,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} /> 
           <Route path="/catalog" element={<CatalogManagementPage />} /> 
           <Route path="/reports" element={<ReportsPage />} /> 
+          <Route path="/notifications" element={<NotificationsPage />} /> 
         </Routes> 
         <Footer /> 
       </div> 
