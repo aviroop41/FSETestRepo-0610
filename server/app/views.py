@@ -2,9 +2,9 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import JsonResponse
-from .models import Song, Artist, Album, Playlist, SongStream
+from .models import Song, Artist, Album, Playlist, SongStream, Notification
 from rest_framework.decorators import api_view
-from .serializers import PlaylistSerializer, SongSerializer, AlbumSerializer
+from .serializers import PlaylistSerializer, SongSerializer, AlbumSerializer, NotificationSerializer
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
 from django.utils.dateparse import parse_date
@@ -155,3 +155,16 @@ def generate_stream_reports(request):
 def generate_user_engagement_reports(request):
     engagements = Playlist.objects.annotate(num_songs=models.Count('songs')).values('user_id', 'num_songs')
     return JsonResponse(list(engagements), safe=False)
+
+@api_view(['GET'])
+def fetch_notifications(request, user_id):
+    notifications = Notification.objects.filter(user_id=user_id)
+    serializer = NotificationSerializer(notifications, many=True)
+    return JsonResponse(serializer.data, safe=False)
+
+@api_view(['POST'])
+def mark_notification_as_read(request, user_id, notification_id):
+    notification = Notification.objects.get(id=notification_id, user_id=user_id)
+    notification.read = True
+    notification.save()
+    return JsonResponse({'message': 'Notification marked as read'}, status=200)

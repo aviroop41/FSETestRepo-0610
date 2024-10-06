@@ -39,3 +39,9 @@ class UserEngagementReport(models.Model):
     user_id = models.IntegerField()
     engagement_time = models.DurationField()
     date = models.DateField()
+
+class Notification(models.Model):
+    user_id = models.IntegerField()
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)

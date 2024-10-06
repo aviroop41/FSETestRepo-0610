@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import search, create_playlist, get_playlists, update_playlist, delete_playlist, add_song_to_playlist, remove_song_from_playlist, get_user_profile, update_user_profile, add_song, update_song, delete_song, add_album, update_album, delete_album, stream_song, get_song_details, generate_stream_reports, generate_user_engagement_reports
+from .views import search, create_playlist, get_playlists, update_playlist, delete_playlist, add_song_to_playlist, remove_song_from_playlist, get_user_profile, update_user_profile, add_song, update_song, delete_song, add_album, update_album, delete_album, stream_song, get_song_details, generate_stream_reports, generate_user_engagement_reports, get_notifications, mark_notification_as_read
 
 urlpatterns = [
     path('search', search, name='search'),
@@ -21,4 +21,6 @@ urlpatterns = [
     path('api/songs/<int:song_id>', get_song_details, name='get_song_details'),
     path('api/admin/reports/streams', generate_stream_reports, name='generate_stream_reports'),
     path('api/admin/reports/user-engagement', generate_user_engagement_reports, name='generate_user_engagement_reports'),
+    path('api/user/<int:user_id>/notifications', get_notifications, name='get_notifications'),
+    path('api/user/<int:user_id>/notifications/<int:notification_id>/read', mark_notification_as_read, name='mark_notification_as_read'),
 ]
