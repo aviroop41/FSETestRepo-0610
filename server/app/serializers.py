@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from .models import Song, Artist, Album, Playlist
+from django.contrib.auth.models import User
 
 class SongSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,11 +27,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'email']
 
-class AlbumSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Album
-        fields = '__all__'
-
 class SongCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
@@ -49,3 +46,13 @@ class AlbumUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
         fields = ['title']
+
+class SongDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ['id', 'name', 'album', 'duration']
+
+class SongStreamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ['id', 'name', 'album']

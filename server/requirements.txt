@@ -6,3 +6,7 @@ Django REST Framework SimpleJWT
 # New requirements for music catalog management
 
 Django REST Framework
+
+# New requirements for song streaming
+
+Django REST Framework

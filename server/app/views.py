@@ -129,3 +129,14 @@ def delete_album(request, album_id):
     album = Album.objects.get(id=album_id)
     album.delete()
     return JsonResponse({'message': 'Album deleted successfully'}, status=204)
+
+@api_view(['GET'])
+def stream_song(request, song_id):
+    song = Song.objects.get(id=song_id)
+    return JsonResponse({'url': f'/media/songs/{song.id}.mp3', 'name': song.name, 'duration': str(song.duration)})
+
+@api_view(['GET'])
+def get_song_details(request, song_id):
+    song = Song.objects.get(id=song_id)
+    serializer = SongSerializer(song)
+    return JsonResponse(serializer.data)
