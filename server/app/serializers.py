@@ -24,3 +24,28 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'email']
+
+class AlbumSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = '__all__'
+
+class SongCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ['name', 'artist', 'album']
+
+class SongUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ['name', 'artist', 'album']
+
+class AlbumCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ['title']
+
+class AlbumUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Album
+        fields = ['title']

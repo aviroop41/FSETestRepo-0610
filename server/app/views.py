@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Song, Artist, Album, Playlist
 from rest_framework.decorators import api_view
-from .serializers import PlaylistSerializer
+from .serializers import PlaylistSerializer, SongSerializer, AlbumSerializer
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
 
@@ -83,3 +83,49 @@ def update_user_profile(request, user_id):
         serializer.save()
         return JsonResponse(serializer.data)
     return JsonResponse(serializer.errors, status=400)
+
+@api_view(['POST'])
+def add_song(request):
+    serializer = SongSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse(serializer.data, status=201)
+    return JsonResponse(serializer.errors, status=400)
+
+@api_view(['PUT'])
+def update_song(request, song_id):
+    song = Song.objects.get(id=song_id)
+    serializer = SongSerializer(song, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse(serializer.data)
+    return JsonResponse(serializer.errors, status=400)
+
+@api_view(['DELETE'])
+def delete_song(request, song_id):
+    song = Song.objects.get(id=song_id)
+    song.delete()
+    return JsonResponse({'message': 'Song deleted successfully'}, status=204)
+
+@api_view(['POST'])
+def add_album(request):
+    serializer = AlbumSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse(serializer.data, status=201)
+    return JsonResponse(serializer.errors, status=400)
+
+@api_view(['PUT'])
+def update_album(request, album_id):
+    album = Album.objects.get(id=album_id)
+    serializer = AlbumSerializer(album, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse(serializer.data)
+    return JsonResponse(serializer.errors, status=400)
+
+@api_view(['DELETE'])
+def delete_album(request, album_id):
+    album = Album.objects.get(id=album_id)
+    album.delete()
+    return JsonResponse({'message': 'Album deleted successfully'}, status=204)
