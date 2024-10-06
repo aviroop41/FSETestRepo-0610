@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Song, Artist, Album, Playlist
+from .models import Song, Artist, Album, Playlist, SongStream, SongDetail
 from django.contrib.auth.models import User
 
 class SongSerializer(serializers.ModelSerializer):
@@ -56,3 +56,13 @@ class SongStreamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Song
         fields = ['id', 'name', 'album']
+
+class StreamReportSerializer(serializers.Serializer):
+    song_id = serializers.IntegerField(required=True)
+    streams = serializers.IntegerField(required=True)
+    date = serializers.DateField(required=True)
+
+class UserEngagementReportSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField(required=True)
+    engagement_rate = serializers.FloatField(required=True)
+    total_streams = serializers.IntegerField(required=True)

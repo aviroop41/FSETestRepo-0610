@@ -2,11 +2,13 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import JsonResponse
-from .models import Song, Artist, Album, Playlist
+from .models import Song, Artist, Album, Playlist, SongStream
 from rest_framework.decorators import api_view
 from .serializers import PlaylistSerializer, SongSerializer, AlbumSerializer
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
+from django.utils.dateparse import parse_date
+from django.db import models
 
 
 def search(request):
@@ -140,3 +142,16 @@ def get_song_details(request, song_id):
     song = Song.objects.get(id=song_id)
     serializer = SongSerializer(song)
     return JsonResponse(serializer.data)
+
+@api_view(['GET'])
+def generate_stream_reports(request):
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    streams = SongStream.objects.filter(stream_date__range=[parse_date(start_date), parse_date(end_date)])
+    report_data = list(streams.values('song__name', 'stream_url', 'stream_date'))
+    return JsonResponse(report_data, safe=False)
+
+@api_view(['GET'])
+def generate_user_engagement_reports(request):
+    engagements = Playlist.objects.annotate(num_songs=models.Count('songs')).values('user_id', 'num_songs')
+    return JsonResponse(list(engagements), safe=False)

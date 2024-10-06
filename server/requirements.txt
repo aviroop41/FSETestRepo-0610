@@ -1,3 +1,4 @@
+laintext
 Django
 requests
 Django REST Framework
@@ -8,5 +9,9 @@ Django REST Framework SimpleJWT
 Django REST Framework
 
 # New requirements for song streaming
+
+Django REST Framework
+
+# New requirements for reporting APIs
 
 Django REST Framework

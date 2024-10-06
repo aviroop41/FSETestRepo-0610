@@ -29,3 +29,13 @@ class SongDetail(models.Model):
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     detailed_description = models.TextField(blank=True)
     tags = models.CharField(max_length=255, blank=True)
+
+class StreamReport(models.Model):
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    stream_count = models.IntegerField(default=0)
+    date = models.DateField()
+
+class UserEngagementReport(models.Model):
+    user_id = models.IntegerField()
+    engagement_time = models.DurationField()
+    date = models.DateField()
