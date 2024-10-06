@@ -8,6 +8,7 @@ import ProfilePage from './pages/ProfilePage';
 import CatalogManagementPage from './pages/CatalogManagementPage'; 
 import ReportsPage from './pages/ReportsPage'; 
 import NotificationsPage from './pages/NotificationsPage'; 
+import ArtistFollowPage from './pages/ArtistFollowPage'; 
 
 function App() { 
   return ( 
@@ -22,6 +23,7 @@ function App() {
           <Link to="/catalog" className="mx-4">Catalog Management</Link> 
           <Link to="/reports" className="mx-4">Reports</Link> 
           <Link to="/notifications" className="mx-4">Notifications</Link> 
+          <Link to="/artist-follow" className="mx-4">Artist Follow</Link> 
         </nav> 
         <Routes> 
           <Route path="/" element={<div className="flex items-center justify-center h-screen"><h1 className="text-2xl">Welcome to the App!</h1></div>} /> 
@@ -31,6 +33,7 @@ function App() {
           <Route path="/catalog" element={<CatalogManagementPage />} /> 
           <Route path="/reports" element={<ReportsPage />} /> 
           <Route path="/notifications" element={<NotificationsPage />} /> 
+          <Route path="/artist-follow" element={<ArtistFollowPage />} /> 
         </Routes> 
         <Footer /> 
       </div> 
