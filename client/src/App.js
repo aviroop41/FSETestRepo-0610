@@ -9,6 +9,7 @@ import CatalogManagementPage from './pages/CatalogManagementPage';
 import ReportsPage from './pages/ReportsPage'; 
 import NotificationsPage from './pages/NotificationsPage'; 
 import ArtistFollowPage from './pages/ArtistFollowPage'; 
+import HomePage from './pages/HomePage'; 
 
 function App() { 
   return ( 
@@ -27,6 +28,7 @@ function App() {
         </nav> 
         <Routes> 
           <Route path="/" element={<div className="flex items-center justify-center h-screen"><h1 className="text-2xl">Welcome to the App!</h1></div>} /> 
+          <Route path="/home" element={<HomePage />} /> 
           <Route path="/search" element={<SearchPage />} /> 
           <Route path="/playlists" element={<PlaylistsPage />} /> 
           <Route path="/profile" element={<ProfilePage />} /> 
