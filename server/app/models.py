@@ -45,3 +45,8 @@ class Notification(models.Model):
     message = models.TextField()
     is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class ArtistFollow(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    followed_at = models.DateTimeField(auto_now_add=True)

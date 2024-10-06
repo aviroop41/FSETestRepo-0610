@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Song, Artist, Album, Playlist, SongStream, SongDetail, Notification
+from .models import Song, Artist, Album, Playlist, SongStream, SongDetail, Notification, ArtistFollow
 from django.contrib.auth.models import User
 
 class SongSerializer(serializers.ModelSerializer):
@@ -61,6 +61,11 @@ class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
         fields = ['id', 'message', 'created_at', 'read']
+
+class ArtistFollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArtistFollow
+        fields = ['artist_id']
 
 class StreamReportSerializer(serializers.Serializer):
     song_id = serializers.IntegerField(required=True)

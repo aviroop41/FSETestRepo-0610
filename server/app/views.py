@@ -2,9 +2,9 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import JsonResponse
-from .models import Song, Artist, Album, Playlist, SongStream, Notification
+from .models import Song, Artist, Album, Playlist, SongStream, Notification, ArtistFollow
 from rest_framework.decorators import api_view
-from .serializers import PlaylistSerializer, SongSerializer, AlbumSerializer, NotificationSerializer
+from .serializers import PlaylistSerializer, SongSerializer, AlbumSerializer, NotificationSerializer, ArtistFollowSerializer
 from django.contrib.auth.models import User
 from .serializers import UserSerializer
 from django.utils.dateparse import parse_date
@@ -21,6 +21,29 @@ def search(request):
         'artists': list(artists.values()),
         'albums': list(albums.values())
     })
+
+@api_view(['POST'])
+def follow_artist(request, user_id):
+    artist_id = request.data.get('artist_id')
+    follow, created = ArtistFollow.objects.get_or_create(user_id=user_id, artist_id=artist_id)
+    if created:
+        return JsonResponse({'message': 'Started following artist'}, status=201)
+    return JsonResponse({'message': 'Already following artist'}, status=400)
+
+@api_view(['DELETE'])
+def unfollow_artist(request, user_id, artist_id):
+    follow = ArtistFollow.objects.filter(user_id=user_id, artist_id=artist_id).first()
+    if follow:
+        follow.delete()
+        return JsonResponse({'message': 'Unfollowed artist'}, status=204)
+    return JsonResponse({'message': 'Not following this artist'}, status=404)
+
+@api_view(['GET'])
+def get_followed_artists(request, user_id):
+    followed_artists = ArtistFollow.objects.filter(user_id=user_id).select_related('artist')
+    artists = [follow.artist for follow in followed_artists]
+    serializer = ArtistFollowSerializer(artists, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 @api_view(['POST'])
 def create_playlist(request):

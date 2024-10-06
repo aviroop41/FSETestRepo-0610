@@ -15,3 +15,7 @@ Django REST Framework
 # New requirements for reporting APIs
 
 Django REST Framework
+
+# New requirements for artist following functionality
+
+Django REST Framework
