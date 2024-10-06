@@ -5,6 +5,8 @@ from django.http import JsonResponse
 from .models import Song, Artist, Album, Playlist
 from rest_framework.decorators import api_view
 from .serializers import PlaylistSerializer
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
 
 
 def search(request):
@@ -61,3 +63,23 @@ def remove_song_from_playlist(request, playlist_id, song_id):
     song = Song.objects.get(id=song_id)
     playlist.songs.remove(song)
     return JsonResponse({'message': 'Song removed from playlist'}, status=200)
+
+@api_view(['GET'])
+def get_user_profile(request, user_id):
+    user = User.objects.get(id=user_id)
+    playlists = Playlist.objects.filter(user_id=user.id)
+    saved_songs = list(user.songs.values())
+    return JsonResponse({
+        'user': {'id': user.id, 'username': user.username},
+        'playlists': PlaylistSerializer(playlists, many=True).data,
+        'saved_songs': saved_songs
+    })
+
+@api_view(['PUT'])
+def update_user_profile(request, user_id):
+    user = User.objects.get(id=user_id)
+    serializer = UserSerializer(user, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return JsonResponse(serializer.data)
+    return JsonResponse(serializer.errors, status=400)
