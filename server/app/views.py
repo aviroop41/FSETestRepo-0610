@@ -45,6 +45,12 @@ def get_followed_artists(request, user_id):
     serializer = ArtistFollowSerializer(artists, many=True)
     return JsonResponse(serializer.data, safe=False)
 
+@api_view(['GET'])
+def get_personalized_recommendations(request, user_id):
+    # Assuming you have a function or method to get recommendations based on user listening habits
+    recommendations = generate_recommendations_based_on_listening_history(user_id)  # replace with actual logic
+    return JsonResponse(recommendations, safe=False)
+
 @api_view(['POST'])
 def create_playlist(request):
     serializer = PlaylistSerializer(data=request.data)

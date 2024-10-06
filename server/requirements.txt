@@ -19,3 +19,7 @@ Django REST Framework
 # New requirements for artist following functionality
 
 Django REST Framework
+
+# New requirements for personalized music recommendations
+
+Django REST Framework

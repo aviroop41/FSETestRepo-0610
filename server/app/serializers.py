@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Song, Artist, Album, Playlist, SongStream, SongDetail, Notification, ArtistFollow
 from django.contrib.auth.models import User
+from django.db.models import Count
 
 class SongSerializer(serializers.ModelSerializer):
     class Meta:
@@ -76,3 +77,11 @@ class UserEngagementReportSerializer(serializers.Serializer):
     user_id = serializers.IntegerField(required=True)
     engagement_rate = serializers.FloatField(required=True)
     total_streams = serializers.IntegerField(required=True)
+
+class RecommendationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Song
+        fields = ['id', 'name', 'album', 'duration']
+
+class UserRecommendationSerializer(serializers.Serializer):
+    recommendations = RecommendationSerializer(many=True)

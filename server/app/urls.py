@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import search, create_playlist, get_playlists, update_playlist, delete_playlist, add_song_to_playlist, remove_song_from_playlist, get_user_profile, update_user_profile, add_song, update_song, delete_song, add_album, update_album, delete_album, stream_song, get_song_details, generate_stream_reports, generate_user_engagement_reports, get_notifications, mark_notification_as_read, follow_artist, unfollow_artist, get_followed_artists
+from .views import search, create_playlist, get_playlists, update_playlist, delete_playlist, add_song_to_playlist, remove_song_from_playlist, get_user_profile, update_user_profile, add_song, update_song, delete_song, add_album, update_album, delete_album, stream_song, get_song_details, generate_stream_reports, generate_user_engagement_reports, get_notifications, mark_notification_as_read, follow_artist, unfollow_artist, get_followed_artists, get_personalized_recommendations
 
 urlpatterns = [
     path('search', search, name='search'),
@@ -14,6 +14,7 @@ urlpatterns = [
     path('api/user/<int:user_id>/follow-artist', follow_artist, name='follow_artist'),
     path('api/user/<int:user_id>/unfollow-artist/<int:artist_id>', unfollow_artist, name='unfollow_artist'),
     path('api/user/<int:user_id>/followed-artists', get_followed_artists, name='get_followed_artists'),
+    path('api/user/<int:user_id>/recommendations', get_personalized_recommendations, name='get_personalized_recommendations'),
     path('admin/songs/add', add_song, name='add_song'),
     path('admin/songs/<int:song_id>/update', update_song, name='update_song'),
     path('admin/songs/<int:song_id>/delete', delete_song, name='delete_song'),
