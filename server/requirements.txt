@@ -1,0 +1,25 @@
+laintext
+Django
+requests
+Django REST Framework
+Django REST Framework SimpleJWT
+
+# New requirements for music catalog management
+
+Django REST Framework
+
+# New requirements for song streaming
+
+Django REST Framework
+
+# New requirements for reporting APIs
+
+Django REST Framework
+
+# New requirements for artist following functionality
+
+Django REST Framework
+
+# New requirements for personalized music recommendations
+
+Django REST Framework
